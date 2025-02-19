@@ -26,7 +26,7 @@ Un'applicazione Spring Boot intelligente per la gestione di questionari tecnici 
 ## 🚀 Come Iniziare
 
 ### Prerequisiti
-- Java 17+ ([Installazione](https://adoptium.net/))
+- Java 21+ ([Installazione](https://adoptium.net/))
 - Ollama in esecuzione ([Guida Installazione](https://ollama.ai/))
 - Maven 3.9+
 
