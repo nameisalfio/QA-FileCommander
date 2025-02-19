@@ -1,12 +1,10 @@
 # Cognitive File Commander 🚀
 
-[![Java Version](https://img.shields.io/badge/Java-17%2B-blue.svg)](https://openjdk.org/projects/jdk/17/)
+[![Java Version](https://img.shields.io/badge/Java-17%2B-blue.svg)](https://openjdk.org/projects/jdk/21/)
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.5.0-brightgreen.svg)](https://spring.io/projects/spring-boot)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
 Un'applicazione Spring Boot intelligente per la gestione di questionari tecnici via terminale, integrata con modelli linguistici (LLM) tramite Ollama.
-
-![CLI Demo](https://via.placeholder.com/800x400.png?text=CLI+Interface+Demo)
 
 ## ✨ Funzionalità Principali
 - **Gestione Domande via LLM**  
