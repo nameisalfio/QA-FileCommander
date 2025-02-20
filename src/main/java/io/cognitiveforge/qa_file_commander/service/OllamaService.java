@@ -69,10 +69,11 @@ public class OllamaService {
 
     private void appendToFile(String newContent) {
         try {
-            // Leggi tutte le righe del file
             Path filePath = Path.of(FILE_PATH);
+    
+            // Crea il file se non esiste
             if (!Files.exists(filePath)) {
-                Files.createFile(filePath); // Crea il file se non esiste
+                Files.createFile(filePath);
             }
     
             // Leggi tutte le righe del file
@@ -80,12 +81,16 @@ public class OllamaService {
     
             // Trova l'ultima riga con un numero progressivo
             int lastNumber = 0;
-            if (!lines.isEmpty()) {
-                String lastLine = lines.get(lines.size() - 1);
-                // Usa una regex per estrarre il numero progressivo (es. "10) Domanda")
-                var matcher = java.util.regex.Pattern.compile("^(\\d+)\\)").matcher(lastLine);
+            for (int i = lines.size() - 1; i >= 0; i--) {
+                String line = lines.get(i);
+                if (line.trim().isEmpty()) {
+                    continue; // Salta le righe vuote
+                }
+    
+                var matcher = java.util.regex.Pattern.compile("^(\\d+)\\)").matcher(line);
                 if (matcher.find()) {
                     lastNumber = Integer.parseInt(matcher.group(1));
+                    break; // Esci dal ciclo una volta trovato l'ultimo numero
                 }
             }
     

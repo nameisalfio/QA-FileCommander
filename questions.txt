@@ -1,12 +1,10 @@
-1. Qual è la differenza tra uno stack e una coda?
-2. Come funziona un algoritmo di ricerca binaria?
-3. Qual è lo scopo di un indice di database?
-4. Spiega il concetto di programmazione orientata agli oggetti.
-5. Qual è la differenza tra HTTP e HTTPS?
-6. Come funziona una tabella hash?
-7. Qual è lo scopo di un firewall nella sicurezza di rete?
-8. Spiega il concetto di ricorsione nella programmazione.
-9. Qual è la differenza tra programmazione sincrona e asincrona?
-10. Come funziona un sistema di controllo di versione come Git?
-1) Ciao
-2) Banana
+1) Qual è la differenza tra uno stack e una coda?
+2) Come funziona un algoritmo di ricerca binaria?
+3) Qual è lo scopo di un indice di database?
+4) Spiega il concetto di programmazione orientata agli oggetti.
+5) Qual è la differenza tra HTTP e HTTPS?
+6) Come funziona una tabella hash?
+7) Qual è lo scopo di un firewall nella sicurezza di rete?
+8) Spiega il concetto di ricorsione nella programmazione.
+9) Qual è la differenza tra programmazione sincrona e asincrona?
+10) Come funziona un sistema di controllo di versione come Git?
