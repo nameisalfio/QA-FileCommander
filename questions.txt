@@ -8,3 +8,5 @@
 8. Spiega il concetto di ricorsione nella programmazione.
 9. Qual è la differenza tra programmazione sincrona e asincrona?
 10. Come funziona un sistema di controllo di versione come Git?
+1) Ciao
+2) Banana

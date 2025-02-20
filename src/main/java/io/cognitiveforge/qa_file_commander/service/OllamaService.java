@@ -9,6 +9,7 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,30 @@ public class OllamaService {
     private static final String OLLAMA_API_URL = "http://localhost:11434/api/generate";
 
     public String processUserQuery(String userQuery) {
+        // Se l'utente dice "Ciao", non rispondere alle domande
+        if (userQuery.equalsIgnoreCase("ciao")) {
+            return "Ciao! Come posso aiutarti?";
+        }
+
+        // Se l'utente vuole aggiungere una domanda
+        if (userQuery.toLowerCase().startsWith("aggiungi")) {
+            String newQuestion = userQuery.substring("aggiungi".length()).trim();
+            appendToFile(newQuestion);
+            return "Domanda aggiunta con successo!";
+        }
+
+        // Se l'utente vuole modificare il file
+        if (userQuery.toLowerCase().startsWith("modifica")) {
+            String newContent = userQuery.substring("modifica".length()).trim();
+            try {
+                Files.write(Path.of(FILE_PATH), newContent.getBytes());
+                return "File modificato con successo!";
+            } catch (IOException e) {
+                return "Errore durante la modifica del file: " + e.getMessage();
+            }
+        }
+
+        // Altrimenti, elabora la query normalmente
         String fileContent = readFileContent();
         String prompt = """
             Il seguente testo contiene un elenco di domande:
@@ -39,6 +64,39 @@ public class OllamaService {
             return Files.readString(Path.of(FILE_PATH));
         } catch (IOException e) {
             return "Errore nella lettura del file.";
+        }
+    }
+
+    private void appendToFile(String newContent) {
+        try {
+            // Leggi tutte le righe del file
+            Path filePath = Path.of(FILE_PATH);
+            if (!Files.exists(filePath)) {
+                Files.createFile(filePath); // Crea il file se non esiste
+            }
+    
+            // Leggi tutte le righe del file
+            var lines = Files.readAllLines(filePath);
+    
+            // Trova l'ultima riga con un numero progressivo
+            int lastNumber = 0;
+            if (!lines.isEmpty()) {
+                String lastLine = lines.get(lines.size() - 1);
+                // Usa una regex per estrarre il numero progressivo (es. "10) Domanda")
+                var matcher = java.util.regex.Pattern.compile("^(\\d+)\\)").matcher(lastLine);
+                if (matcher.find()) {
+                    lastNumber = Integer.parseInt(matcher.group(1));
+                }
+            }
+    
+            // Incrementa il numero progressivo
+            int newNumber = lastNumber + 1;
+    
+            // Aggiungi la nuova domanda con il numero progressivo
+            String newQuestion = newNumber + ") " + newContent;
+            Files.write(filePath, (newQuestion + System.lineSeparator()).getBytes(), StandardOpenOption.APPEND);
+        } catch (IOException e) {
+            System.err.println("Errore durante l'aggiunta al file: " + e.getMessage());
         }
     }
 
