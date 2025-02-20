@@ -22,19 +22,13 @@ public class OllamaService {
     private static final String OLLAMA_API_URL = "http://localhost:11434/api/generate";
 
     public String processUserQuery(String userQuery) {
-        // Se l'utente dice "Ciao", non rispondere alle domande
-        if (userQuery.equalsIgnoreCase("ciao")) {
-            return "Ciao! Come posso aiutarti?";
-        }
-
-        // Se l'utente vuole aggiungere una domanda
+        // Se l'utente vuole aggiungere o modificare una domanda, gestiscilo separatamente
         if (userQuery.toLowerCase().startsWith("aggiungi")) {
             String newQuestion = userQuery.substring("aggiungi".length()).trim();
             appendToFile(newQuestion);
             return "Domanda aggiunta con successo!";
         }
 
-        // Se l'utente vuole modificare il file
         if (userQuery.toLowerCase().startsWith("modifica")) {
             String newContent = userQuery.substring("modifica".length()).trim();
             try {
@@ -45,7 +39,7 @@ public class OllamaService {
             }
         }
 
-        // Altrimenti, elabora la query normalmente
+        // Altrimenti, delega completamente la risposta al modello LLM
         String fileContent = readFileContent();
         String prompt = """
             Il seguente testo contiene un elenco di domande:
@@ -53,7 +47,13 @@ public class OllamaService {
             %s
             
             L'utente ha chiesto: "%s"
-            Rispondi basandoti esclusivamente sul contenuto del testo. Se possibile, dai una risposta diretta. Se non trovi la risposta, dì chiaramente che non è presente.
+            Rispondi in modo appropriato, considerando il contesto delle domande e la richiesta dell'utente. 
+
+            L'utente potrebbe chiederti di effettuare operazioni di ricerca o di manipolazione del testo, se individui l'intenzione di leggere 
+            la domanda X, leggi pure la riga X del testo. 
+            
+            Se la richiesta dell'utente è una domanda di carattere generale rispondi senza consultare il testo (es. se l'utente 
+            chiede "Qual è la capitale dell'Italia?" rispondi "Roma").
             """.formatted(fileContent, userQuery);
 
         return callOllamaModel(prompt);
@@ -76,30 +76,8 @@ public class OllamaService {
                 Files.createFile(filePath);
             }
     
-            // Leggi tutte le righe del file
-            var lines = Files.readAllLines(filePath);
-    
-            // Trova l'ultima riga con un numero progressivo
-            int lastNumber = 0;
-            for (int i = lines.size() - 1; i >= 0; i--) {
-                String line = lines.get(i);
-                if (line.trim().isEmpty()) {
-                    continue; // Salta le righe vuote
-                }
-    
-                var matcher = java.util.regex.Pattern.compile("^(\\d+)\\)").matcher(line);
-                if (matcher.find()) {
-                    lastNumber = Integer.parseInt(matcher.group(1));
-                    break; // Esci dal ciclo una volta trovato l'ultimo numero
-                }
-            }
-    
-            // Incrementa il numero progressivo
-            int newNumber = lastNumber + 1;
-    
-            // Aggiungi la nuova domanda con il numero progressivo
-            String newQuestion = newNumber + ") " + newContent;
-            Files.write(filePath, (newQuestion + System.lineSeparator()).getBytes(), StandardOpenOption.APPEND);
+            // Aggiungi la nuova domanda direttamente al file
+            Files.write(filePath, (newContent + System.lineSeparator()).getBytes(), StandardOpenOption.APPEND);
         } catch (IOException e) {
             System.err.println("Errore durante l'aggiunta al file: " + e.getMessage());
         }
