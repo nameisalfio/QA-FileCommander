@@ -4,22 +4,24 @@
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.5.0-brightgreen.svg)](https://spring.io/projects/spring-boot)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
-Un'applicazione Spring Boot intelligente per la gestione di questionari tecnici via terminale, integrata con modelli linguistici (LLM) tramite Ollama.
+Un'applicazione Spring Boot avanzata per la gestione di questionari tecnici e la consultazione di file di codice tramite modelli linguistici locali (LLM) come Llama, integrati con Ollama.
 
 ## ✨ Funzionalità Principali
 - **Gestione Domande via LLM**  
-  Interagisci con il file di domande usando linguaggio naturale
+  Interagisci con il file di domande usando linguaggio naturale.
+- **Consultazione di File di Codice**  
+  Analizza file di codice sorgente (es. `Player.java`) per ottenere riepiloghi, spiegazioni e suggerimenti.
 - **Operazioni CRUD Intelligenti**  
-  Aggiungi, modifica o elimina domande attraverso comandi testuali
+  Aggiungi, modifica o elimina domande e contenuti tramite comandi testuali.
 - **Interfaccia da Terminale**  
-  Interazione diretta senza bisogno di interfaccia web
+  Controlla l'app direttamente dal terminale, senza interfaccia grafica.
 - **Integrazione con Ollama**  
-  Supporto per diversi modelli linguistici (Llama2, Mistral, ecc.)
+  Supporto per diversi modelli linguistici (Llama2, Mistral, ecc.), eseguiti in locale.
 
 ## 🛠️ Tecnologie Utilizzate
 - **Backend**: Spring Boot 3.5 + WebFlux
-- **LLM Integration**: Ollama API
-- **Language**: Java 17
+- **LLM Integration**: Ollama API (modelli locali)
+- **Language**: Java 21+
 - **Build Tool**: Maven
 - **Utilities**: Lombok, Jackson
 
@@ -38,44 +40,61 @@ mvn clean install
 ```
 
 ### Avvio Applicazione
+Assicurati che Ollama sia in esecuzione:
+```bash
+ollama run ollama-3.2
+```
 
+Avvia l'applicazione Spring Boot:
 ```bash
 mvn spring-boot:run
-
-# Verifica che Ollama sia in esecuzione
-curl http://localhost:11434
 ```
 
 ### Esempio di Utilizzo
-
+Cognitive File Commander permette di consultare file di codice come `Player.java`, estraendone informazioni chiave tramite LLM:
 ```bash
-> Aggiungi una domanda sulle differenze tra HTTP/1.1 e HTTP/2
-> Modifica la domanda 3 con "Spiega il pattern MVC"
-> Elimina la domanda numero 5
-> Mostra tutte le domande
-> exit
+> Analizza la classe Player
 ```
 
 ### Struttura del Progetto
-
 ```bash
-.
+QA-FileCommander/
+├── HELP.md
+├── LICENSE
+├── Player.java
+├── README.md
+├── mvnw
+├── mvnw.cmd
+├── pom.xml
+├── questions.txt
 ├── src
 │   ├── main
-│   │   ├── java/io/cognitiveforge
-│   │   │   ├── config      # Configurazioni Spring
-│   │   │   ├── service     # Business logic e integrazione LLM
-│   │   │   ├── model       # DTO e classi dominio
-│   │   │   └── util       # Utilities e parser
-│   │   └── resources       # File di configurazione
-│   └── test                # Test unitari e integrazione
-├── questions.txt           # Database delle domande
-└── pom.xml                 # Configurazione Maven
+│   │   ├── java
+│   │   │   ├── config
+│   │   │   ├── controller
+│   │   │   ├── io
+│   │   │   │   └── cognitiveforge
+│   │   │   │       └── qa_file_commander
+│   │   │   │           ├── Application.java
+│   │   │   │           ├── TerminalInterface.java
+│   │   │   │           ├── service
+│   │   │   │           │   ├── OllamaService.java
+│   │   │   │           │   └── TextFileService.java
+│   │   │   │           └── util
+│   │   │   │               └── ResponseParser.java
+│   │   │   ├── model
+│   │   │   └── util
+│   │   └── resources
+│   │       └── application.properties
+│   └── test
+│       └── java
+│           └── io
+│               └── cognitiveforge
+│                   └── qa_file_commander
+│                       └── CognitiveFileCommanderApplicationTests.java
+└── target
 ```
 
 ## Licenza
-
 Distribuito sotto licenza MIT. Vedi LICENSE per maggiori dettagli.
-
-
 
