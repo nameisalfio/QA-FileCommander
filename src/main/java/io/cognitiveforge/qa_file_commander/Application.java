@@ -30,7 +30,7 @@ public class Application implements CommandLineRunner {
         Scanner scanner = new Scanner(System.in);
 
         // Legge il contenuto del file all'inizio
-        String filePath = "questions.txt";
+        String filePath = "Player.java";
         List<String> lines;
         try {
             lines = Files.readAllLines(Path.of(filePath));

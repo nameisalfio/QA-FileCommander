@@ -19,7 +19,7 @@ public class TextFileService {
 
     private void loadQuestions() {
         try {
-            Path path = Paths.get("questions.txt"); // Percorso corretto in Spring Boot
+            Path path = Paths.get("Player.java"); // Percorso corretto in Spring Boot
             questions = Files.readAllLines(path, StandardCharsets.UTF_8);
             System.out.println("✅ Domande caricate: " + questions.size());
         } catch (Exception e) {
