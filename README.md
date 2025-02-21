@@ -4,59 +4,59 @@
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.5.0-brightgreen.svg)](https://spring.io/projects/spring-boot)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
-Un'applicazione Spring Boot avanzata per la gestione di questionari tecnici e la consultazione di file di codice tramite modelli linguistici locali (LLM) come Llama, integrati con Ollama.
+An advanced Spring Boot application for managing technical questionnaires and consulting code files using local language models (LLMs) like Llama, integrated with Ollama.
 
-## ✨ Funzionalità Principali
-- **Gestione Domande via LLM**  
-  Interagisci con il file di domande usando linguaggio naturale.
-- **Consultazione di File di Codice**  
-  Analizza file di codice sorgente (es. `Player.java`) per ottenere riepiloghi, spiegazioni e suggerimenti.
-- **Operazioni CRUD Intelligenti**  
-  Aggiungi, modifica o elimina domande e contenuti tramite comandi testuali.
-- **Interfaccia da Terminale**  
-  Controlla l'app direttamente dal terminale, senza interfaccia grafica.
-- **Integrazione con Ollama**  
-  Supporto per diversi modelli linguistici (Llama2, Mistral, ecc.), eseguiti in locale.
+## ✨ Key Features
+- **Question Management via LLM**  
+  Interact with the question file using natural language.
+- **Code File Consultation**  
+  Analyze source code files (e.g., `Player.java`) to obtain summaries, explanations, and suggestions.
+- **Intelligent CRUD Operations**  
+  Add, modify, or delete questions and content via text commands.
+- **Terminal-Based Interface**  
+  Control the app directly from the terminal without a graphical interface.
+- **Ollama Integration**  
+  Support for various language models (Llama2, Mistral, etc.), running locally.
 
-## 🛠️ Tecnologie Utilizzate
+## 🛠️ Technologies Used
 - **Backend**: Spring Boot 3.5 + WebFlux
-- **LLM Integration**: Ollama API (modelli locali)
+- **LLM Integration**: Ollama API (local models)
 - **Language**: Java 21+
 - **Build Tool**: Maven
 - **Utilities**: Lombok, Jackson
 
-## 🚀 Come Iniziare
+## 🚀 Getting Started
 
-### Prerequisiti
-- Java 21+ ([Installazione](https://adoptium.net/))
-- Ollama in esecuzione ([Guida Installazione](https://ollama.ai/))
+### Prerequisites
+- Java 21+ ([Installation](https://adoptium.net/))
+- Ollama running ([Installation Guide](https://ollama.ai/))
 - Maven 3.9+
 
-### Installazione
+### Installation
 ```bash
-git clone https://github.com/tuo-utente/qa-file-commander.git
+git clone https://github.com/your-username/qa-file-commander.git
 cd qa-file-commander
 mvn clean install
 ```
 
-### Avvio Applicazione
-Assicurati che Ollama sia in esecuzione:
+### Running the Application
+Ensure Ollama is running:
 ```bash
 ollama run ollama-3.2
 ```
 
-Avvia l'applicazione Spring Boot:
+Start the Spring Boot application:
 ```bash
 mvn spring-boot:run
 ```
 
-### Esempio di Utilizzo
-Cognitive File Commander permette di consultare file di codice come `Player.java`, estraendone informazioni chiave tramite LLM:
+### Example Usage
+Cognitive File Commander allows you to consult code files like `Player.java`, extracting key information using LLM:
 ```bash
-> Analizza la classe Player
+> Analyze the Player class
 ```
 
-### Struttura del Progetto
+### Project Structure
 ```bash
 QA-FileCommander/
 ├── HELP.md
@@ -95,6 +95,5 @@ QA-FileCommander/
 └── target
 ```
 
-## Licenza
-Distribuito sotto licenza MIT. Vedi LICENSE per maggiori dettagli.
-
+## License
+Distributed under the MIT License. See LICENSE for more details.
